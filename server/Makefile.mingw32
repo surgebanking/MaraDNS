@@ -49,7 +49,7 @@ udpsuccess.o: udpsuccess.c
 	$(CC) -c $(FLAGS) -o udpsuccess.o udpsuccess.c
 
 maradns: MaraDNS.c $(OBJECTS) MaraDNS_locale.h
-	$(CC) $(FLAGS) -DVERSION=\"$(VERSION)\" -DCOMPILED=\"$(COMPILED)\" -o maradns MaraDNS.c $(OBJECTS) -lwsock32
+	$(CC) $(FLAGS) -D_POSIX_C_SOURCE -D_DEFAULT_SOURCE -DVERSION=\"$(VERSION)\" -DCOMPILED=\"$(COMPILED)\" -o maradns MaraDNS.c $(OBJECTS) -lwsock32
 
 simple: simple.c $(XOBJECTS) MaraDNS_locale.h
 	$(CC) $(FLAGS) -DVERSION=\"$(VERSION)\" -DCOMPILED=\"$(COMPILED)\" -o simple $(OBJECTS) simple.c 

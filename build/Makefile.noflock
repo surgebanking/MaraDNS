@@ -23,7 +23,7 @@ EXECS=server/maradns
 # LDFLAGS=-L/usr/ucblib -lucb -lxnet
 # end the Solaris section
 # Non-Solaris version of "M"
-M="CC=$(CC) -O2 -std=c99 -D_POSIX_C_SOURCE -D_DEFAULT_SOURCE -Wall" 
+M="CC=$(CC) -O2 -std=c99 -Wall" 
 DEBUG=-DNO_FLOCK 
 V="VERSION=$(VERSION)"
 

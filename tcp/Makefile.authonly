@@ -31,5 +31,5 @@ fetchzone: fetchzone.c $(OBJECTS)
 	$(CC) $(FLAGS) -o fetchzone fetchzone.c $(OBJECTS) 
 
 zoneserver: zoneserver.c zoneserver_en.h $(OBJECTS)
-	$(CC) $(FLAGS) -DVERSION=\"$(VERSION)\" -o zoneserver zoneserver.c $(OBJECTS) $(RNGOBJS)
+	$(CC) $(FLAGS) -D_POSIX_C_SOURCE -D_DEFAULT_SOURCE -DVERSION=\"$(VERSION)\" -o zoneserver zoneserver.c $(OBJECTS) $(RNGOBJS)
 
