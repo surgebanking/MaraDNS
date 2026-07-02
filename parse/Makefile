@@ -59,7 +59,7 @@ Csv2_rr_txt.o: Csv2_rr_txt.c ../libs/JsStr.h Csv2_read.h
 	$(CC) -c $(FLAGS) -o Csv2_rr_txt.o Csv2_rr_txt.c
 
 Csv2_database.o: Csv2_database.c ../libs/JsStr.h Csv2_read.h
-	$(CC) -c $(FLAGS) -D_POSIX_C_SOURCE -D_DEFAULT_SOURCE -o Csv2_database.o Csv2_database.c
+	$(CC) -c $(FLAGS) -o Csv2_database.o Csv2_database.c
 
 parsetest: parsetest.c $(OBJECTS) 
 	$(CC) $(FLAGS) -o parsetest parsetest.c $(OBJECTS) 

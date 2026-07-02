@@ -49,7 +49,7 @@
  * system calls to determine when a zone file was last modified.
  */
 
-
+#define _POSIX_C_SOURCE 200112L
 #include "../libs/JsStr.h"
 #include "../libs/MaraHash.h"
 #include "../MaraDns.h"

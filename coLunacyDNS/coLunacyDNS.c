@@ -26,6 +26,9 @@
  * compression of strings, cryptographically strong math.random(), etc.)
  */
 
+#define _POSIX_C_SOURCE 200112L
+#define _DEFAULT_SOURCE
+
 /* Note that a "thread" here is actually a Lua co-routine and the
  * scaffolding in C to keep that co-routine active while waiting for a
  * a reply.  This is *not* multi-threaded at the OS level, just at the

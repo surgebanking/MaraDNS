@@ -19,6 +19,8 @@
  * fitness for purpose.
  */
 
+#define _POSIX_C_SOURCE 200112L
+#define _DEFAULT_SOURCE
 /* This is the core TCP DNS server */
 
 /* Language specific labels */
