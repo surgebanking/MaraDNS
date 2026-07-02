@@ -28,6 +28,7 @@
 
 #define _POSIX_C_SOURCE 200112L
 #define _DEFAULT_SOURCE
+#define _BSD_SOURCE
 
 /* Note that a "thread" here is actually a Lua co-routine and the
  * scaffolding in C to keep that co-routine active while waiting for a

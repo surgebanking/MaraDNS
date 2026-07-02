@@ -17,6 +17,8 @@
  */
 
 #define _POSIX_C_SOURCE 200112L
+#define _DEFAULT_SOURCE
+#define _BSD_SOURCE
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>

@@ -24,6 +24,8 @@
 /* Include stuff needed to be a UDP server */
 
 #define _POSIX_C_SOURCE 200112L
+#define _DEFAULT_SOURCE
+#define _BSD_SOURCE
 #include "../libs/MaraHash.h"
 #include "../MaraDns.h"
 #include "../qual/qual_timestamp.h"
