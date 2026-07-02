@@ -74,7 +74,7 @@ DwSocket.o:	DwSocket.c DwStr.h DwSocket.h
     DwSocket.o DwSocket.c
 
 DwSys.o:	DwSys.c DwStr.h version.h
-	$(CC) $(FLAGS) $(CFLAGS) -DFALLBACK_TIME -Wall -c -o DwSys.o DwSys.c
+	$(CC) $(FLAGS) $(CFLAGS) -D_POSIX_C_SOURCE -D_DEFAULT_SOURCE -DFALLBACK_TIME -Wall -c -o DwSys.o DwSys.c
 
 DwHash.o:	DwHash.c DwStr.h DwRandPrime.h DwHash.h
 	$(CC) $(FLAGS) $(CFLAGS) -Wall -c -o DwHash.o DwHash.c
