@@ -2,7 +2,7 @@
 
 # This tests for a known bug in askmara
 
-cc -o bad.packet bad.packet.c > /dev/null 2>&1
+cc -std=c99 -o bad.packet bad.packet.c > /dev/null 2>&1
 
 # OK, test the server
 ./bad.packet > /dev/null &
