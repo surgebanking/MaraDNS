@@ -280,12 +280,12 @@ stable manner.
 
 # MaraDNS' History
 
-MaraDNS was started in 2001 in response to concerns that there were
-only two freely available DNS servers (BIND and DjbDNS) at the time.
-MaraDNS 1.0 was released in mid-2002, MaraDNS 1.2 was released in late
-2005, MaraDNS 2.0 was released in the fall of 2010, and MaraDNS had
-a version number jump up to 3.3 in 2019 in order to have the same version 
-number as Deadwood.
+MaraDNS was started in 2001 in response to
+[concerns](https://lwn.net/2001/0208/) that there were only two freely
+available DNS servers (BIND and DjbDNS) at the time.  MaraDNS 1.0 was
+released in mid-2002, MaraDNS 1.2 was released in late 2005, MaraDNS 2.0
+was released in the fall of 2010, and MaraDNS had a version number jump
+up to 3.3 in 2019 in order to have the same version number as Deadwood.
 
 MaraDNS 1.0 used a recursive DNS server that was implemented rather
 quickly and had difficult-to-maintain code. This code was completely
