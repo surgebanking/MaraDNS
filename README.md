@@ -6,6 +6,8 @@ has an overview and documentation for MaraDNS.
 # What is MaraDNS
 
 MaraDNS is a free open-source computer program written by Sam Trenholme.
+MaraDNS is mostly POSIX 2001 compliant, with a small number of exceptions
+(see POSIX below).
 
 MaraDNS implements the Domain Name System (DNS), an essential internet
 service. MaraDNS is open source software: This means that anyone is
@@ -76,7 +78,13 @@ To build MaraDNS, one needs a POSIX system with:
 * Other standard POSIX utilities (`awk`, etc.)
 * A current C compiler which can support, via `stdint`, 8-bit, 16-bit, 
   32-bit, and 64-bit sized integers.
-* A POSIX C library with both POSIX and Berkeley socket support.
+* A C library with both POSIX 2001 and Berkeley socket support.
+* A C library which supports the non-POSIX `chroot` system call.
+* A C library which supports the non-POSIX `setgroups` system call.
+* A C library which supports `mkstemp`, which was not implemented in
+  a secure way with POSIX until 2008.
+* A C library with `strnlen`, which was not part of the POSIX spec until
+  2008.
 
 (To build some of the documentation, the non-standard but [widely
  available](https://github.com/samboy/busybox-w32) `unix2dos` text conversion utility is used.)
@@ -128,7 +136,66 @@ versions of the core POSIX utilities and GNU coreutils.
 MaraDNS is built and runs on Ubuntu 26.04 as of mid 2026.  I also test
 it in cygwin and Alpine Linux (both Alpine 14 and Alpine 24).
 
-### Please use systemd
+## POSIX
+
+MaraDNS for the most part only needs POSIX libraries to compile and run.
+There are a small number of exceptions.
+
+### chroot
+
+MaraDNS uses the `chroot` system call to, in case of a security issue
+which allows MaraDNS to obtain a remote shell, restrict that shell’s
+access to the underlying filesystem.  While there has, as of 2026,
+*never* been a remote shell exploit found in MaraDNS—even though
+MaraDNS has been around for over 25 years—`chroot` minimizes the
+impact should such a bug be found in the future.
+
+MaraDNS will run without `chroot`, but the security implications would
+be more significant should someone ever be able to get a remote shell
+with MaraDNS.
+
+`chroot` is not defined in POSIX because “[it was not useful to portable
+applications](https://www.govinfo.gov/content/pkg/GOVPUB-C13-bf1fc57a5dbcaa993cebad99aca83f64/pdf/GOVPUB-C13-bf1fc57a5dbcaa993cebad99aca83f64.pdf)” 
+(page 258) since there isn’t a way to make a usable `chroot` environment
+in the POSIX spec.  The POSIX developers failed to consider the case of
+using `chroot` as a portable and widely implemented way of putting an
+application in a sandbox—there is no need to have an “environment
+in which an application could run” for said sandbox.
+
+### setgroups
+
+The `setgroups` call is also used to sandbox MaraDNS.  Like `chroot`,
+this minimizes the inpact should one be able to get a remote root shell
+via a security hole in MaraDNS (again, as of 2026, no security hole with
+remote shell access has ever been found in MaraDNS, and it has been over
+25 years).
+
+`setgroups` is not defined in POSIX because it [requires elevated privileges
+to run](https://linux.die.net/man/2/setgroups).
+
+### mkstemp
+
+`mkstemp` was not mandated to be implemented in a secure manner with
+POSIX until 2008.  The only file that uses `mkstemp` is 
+`coLunacyDNS/lunacy/loslib.c`, and this file now makes sure
+to compile in a POSIX system which is compliant with the 2008 (or later)
+POSIX spec.
+
+While `mkstemp` has been in POSIX since [1997 or 
+sooner](https://archive.ph/20260703003018/https://pubs.opengroup.org/onlinepubs/7908799/xsh/mkstemp.html),
+it wasn’t until the 2008 version of the POSIX spec that files generated
+with `mkstemp` [correctly had 0600 
+permissions](https://github.com/cockpit-project/cockpit/issues/760).
+
+### strnlen
+
+MaraDNS uses `strnlen` instead of `strlen` to stop the possibility that one
+might be able to force coLunacyDNS to allocate a large amount of memory
+if the `human2DNS` function got a name longer than allowed by RFC1034.
+
+`strnlen` was not part of the POSIX standard until 2008.
+
+## Please use systemd
 
 While MaraDNS does have scripts for starting up MaraDNS at system boot
 time on `sysvinit` systems, these scripts are no longer fully supported,
