@@ -192,7 +192,9 @@ applications](https://www.govinfo.gov/content/pkg/GOVPUB-C13-bf1fc57a5dbcaa993ce
 in the POSIX spec.  The POSIX developers failed to consider the case of
 using `chroot` as a portable and widely implemented way of putting an
 application in a sandbox—there is no need to have an “environment
-in which an application could run” in said sandbox.
+in which an application could run” in said sandbox, since MaraDNS
+is started and loads configuration files *before* entering the
+`chroot` jail.
 
 ### setgroups
 
