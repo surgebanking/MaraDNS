@@ -176,11 +176,11 @@ not exist in POSIX 2001 used by MaraDNS are described below.
 ### chroot
 
 MaraDNS uses the `chroot` system call to, in case of a security issue
-which allows MaraDNS to obtain a remote shell, restrict that shell’s
-access to the underlying filesystem.  While there has, as of 2026,
-*never* been a remote shell exploit found in MaraDNS—even though
-MaraDNS has been around for over 25 years—`chroot` minimizes the
-impact should such a bug be found in the future.
+which allows MaraDNS to give an attacker a remote shell, restrict that
+shell’s access to the underlying filesystem.  While there has, as
+of 2026, *never* been a remote shell exploit found in MaraDNS—even
+though MaraDNS has been around for over 25 years—`chroot` minimizes
+the impact should such a bug be found in the future.
 
 MaraDNS will run without `chroot`, but the security implications would
 be more significant should someone ever be able to get a remote shell
@@ -192,7 +192,7 @@ applications](https://www.govinfo.gov/content/pkg/GOVPUB-C13-bf1fc57a5dbcaa993ce
 in the POSIX spec.  The POSIX developers failed to consider the case of
 using `chroot` as a portable and widely implemented way of putting an
 application in a sandbox—there is no need to have an “environment
-in which an application could run” for said sandbox.
+in which an application could run” in said sandbox.
 
 ### setgroups
 
