@@ -1,8 +1,6 @@
 # Querying the server with the IP 127.0.0.1
 # Question: Awww.example.com.
-Cwww.example.com.
-# SOME CNAME
-SOMETHING.akamai.net.
-SOMETHING.akamai.net.
+Awww.example.com.
+Awww.example.com.
 # NS replies:
 # AR replies:
