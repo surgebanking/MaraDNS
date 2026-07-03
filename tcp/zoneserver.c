@@ -33,6 +33,7 @@
 #include "../libs/MaraHash.h"
 #include "../MaraDns.h"
 #include "../server/read_kvars.h"
+#include <sys/select.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
