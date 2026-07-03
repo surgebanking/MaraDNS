@@ -86,10 +86,17 @@ To build MaraDNS, one needs a POSIX system with:
 * A C library with `strnlen`, which was not part of the POSIX spec until
   2008.
 
+It is also possible to compile most programs here in Windows using MinGW,
+with varying levels of Windows support.  MaraDNS (the authoritative
+server) needs third party utilities to run as a service in Windows;
+Deadwood (the recursive server) and coLunacyDNS (a simple DNS server
+with Lua 5.1 scripting support) have built-in Windows service support.
+32-bit Windows binaries are supplied in the `maradns-win32` folder.
+
 (To build some of the documentation, the non-standard but [widely
  available](https://github.com/samboy/busybox-w32) `unix2dos` text conversion utility is used.)
 
-Then, do this:
+To compile MaraDNS, from the top level directory:
 
 ```
 ./configure
