@@ -1,4 +1,4 @@
-/* Copyright (c) 2007 Sam Trenholme
+/* Copyright (c) 2007,2026 Sam Trenholme
  *
  * TERMS
  *
@@ -24,6 +24,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 char p[496] =
 "\x4b\xbf\x84\x00\x00\x01\x00\x01\x00\x00\x00\x00\x02\x74\x31\x07"
@@ -58,7 +60,7 @@ char p[496] =
 "\x39\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34"
 "\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30";
 
-main() {
+int main() {
         int a, b;
         int len_inet;
         struct sockaddr_in dns_udp;
