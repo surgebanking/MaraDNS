@@ -21,8 +21,10 @@
 
 #define _POSIX_C_SOURCE 200112L
 #define _XOPEN_SOURCE 500
+#ifndef STRICT_POSIX
 #define _DEFAULT_SOURCE
 #define _BSD_SOURCE
+#endif // STRICT_POSIX
 /* This is the core TCP DNS server */
 
 /* Language specific labels */
@@ -1171,9 +1173,10 @@ on %s\nFor usage information, type in 'man maradns'" */
             harderror(L_CHROOT_NT); /* "Problem making chroot nt string.\nMake sure the chroot directory is 200 chars or less" */
         if(chdir((char *)chroot_zt) != 0)
             harderror(L_NO_CHROOT); /* "Problem changing to chroot dir.\nMake sure chroot_dir points to a valid directory" */
+#ifndef STRICT_POSIX
         if(chroot((char *)chroot_zt) != 0)
             harderror(L_CHROOT_ERROR);  /* "Problem changing the root directory." */
-
+#endif // STRICT_POSIX
 
         /* Determine which uid and gid to use */
         uid = read_numeric_kvar("maradns_uid",MARADNS_DEFAULT_UID);

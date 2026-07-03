@@ -27,8 +27,10 @@
  */
 
 #define _POSIX_C_SOURCE 200809L
+#ifndef STRICT_POSIX
 #define _DEFAULT_SOURCE
 #define _BSD_SOURCE
+#endif // STRICT_POSIX
 
 /* Note that a "thread" here is actually a Lua co-routine and the
  * scaffolding in C to keep that co-routine active while waiting for a
@@ -1009,12 +1011,14 @@ void sandbox() {
 #ifndef MINGW
         gid_t g = GID;
 #ifndef CYGWIN
+#ifndef STRICT_POSIX
         if(chroot(".") == -1) {
                 log_it("chroot() failed"); exit(1);
         }
         if(setgroups(1,&g) == -1) {
                 log_it("setgroups() failed"); exit(1);
         }
+#endif // STRICT_POSIX
         if(setgid(GID) != 0) { // Yes, this is hard wired right now
                 log_it("setgid() failed"); exit(1);
         }

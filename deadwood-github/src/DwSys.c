@@ -17,8 +17,10 @@
  */
 
 #define _POSIX_C_SOURCE 200112L
+#ifndef STRICT_POSIX
 #define _DEFAULT_SOURCE
 #define _BSD_SOURCE
+#endif // STRICT_POSIX
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -783,6 +785,7 @@ void sandbox() {
                 printf("There is no directory %s\n",(char *)c);
                 dw_fatal("chdir() failed");
         }
+#ifndef STRICT_POSIX
 #ifndef QNX
         if(chroot((char *)c) == -1) {
                 dw_fatal("chroot() failed");
@@ -791,6 +794,7 @@ void sandbox() {
         if(setgroups(1,&g) == -1) {
                 dw_fatal("setgroups() failed");
         }
+#endif /* STRICT_POSIX */
         if(setgid(maradns_gid) != 0) {
                 dw_fatal("setgid() failed");
         }

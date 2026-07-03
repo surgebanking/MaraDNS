@@ -24,8 +24,10 @@
 /* Include stuff needed to be a UDP server */
 
 #define _POSIX_C_SOURCE 200112L
+#ifndef STRICT_POSIX
 #define _DEFAULT_SOURCE
 #define _BSD_SOURCE
+#endif /* STRICT_POSIX */
 #include "../libs/MaraHash.h"
 #include "../MaraDns.h"
 #include "../qual/qual_timestamp.h"
@@ -4317,7 +4319,7 @@ int main(int argc, char **argv) {
             harderror(L_CHROOT_NT); /* "Problem making chroot nt string.\nMake sure the chroot directory is 200 chars or less" */
         if(chdir((char *)chroot_zt) != 0)
             sys_harderror(L_CHROOT_CHANGE); /* "Problem changing to chroot dir.\nMake sure chroot_dir points to a valid directory" */
-#if ! (defined __CYGWIN__ || defined QNX)
+#if ! (defined __CYGWIN__ || defined QNX || defined STRICT_POSIX)
         if(chroot((char *)chroot_zt) != 0)
             sys_harderror(L_CHROOT_DO);  /* "Problem changing the root directory." */
 #endif
@@ -4419,8 +4421,10 @@ int main(int argc, char **argv) {
         /* First, change the GID */
         gid = read_numeric_kvar("maradns_gid",MARADNS_DEFAULT_GID);
 #ifndef __CYGWIN__
+#ifndef STRICT_POSIX
         /* Drop all supplemental groups */
         setgroups(1,&gid);
+#endif /* STRICT_POSIX */
 #endif /* __CYGWIN__ */
         /* Set the group ID */
         setgid(gid);
