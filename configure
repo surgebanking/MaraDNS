@@ -12,13 +12,15 @@ fi
 AUTHONLY="yes"
 export AUTHONLY
 
-# Options: '--noipv6'
+# Options: '--noipv6' -or- '--strict-posix'
 IPV6="yes"
 if [ "$1" = '--ipv6' ] ; then
 	echo '--ipv6 enabled (Note: now default)'
 elif [ "$1" = '--noipv6' ] ; then
 	IPV6=""
 	echo 'IPv6 disabled'
+elif [ "$1" = '--strict-posix' ] ; then
+	STRICT_POSIX="yes"
 elif [ -z "$1" ] ; then
 	echo 'WARNING: ipv6 now enabled by default.  Use --noipv6 to'
 	echo 'compile MaraDNS w/o IPv6 support'
@@ -180,6 +182,9 @@ else
 	EXITCODE=1
 fi
 
+# Back up coLunacyDNS's Makefile
+cp coLunacyDNS/Makefile coLunacyDNS/Makefile.save
+
 # Set up recursive and authoritative name serving
 if [ -z "$IPV6" ] ; then
 	cp server/Makefile.authonly server/Makefile
@@ -190,12 +195,22 @@ if [ -z "$IPV6" ] ; then
 	DEADWOOD_DIR=$( echo deadwood-* )
 	cp ${DEADWOOD}/Makefile ${DEADWOOD}/Makefile.save
 	cp $DEADWOOD_DIR/src/Makefile.noip6 $DEADWOOD_DIR/src/Makefile
-else
+elif [ -z "$STRICT_POSIX" ] ; then
 	cp server/Makefile.ipv6 server/Makefile
 	cp qual/Makefile.nothreads qual/Makefile
 	cp tcp/Makefile.ipv6 tcp/Makefile
 	cp dns/Makefile.authonly dns/Makefile
 	cp tools/Makefile.ipv6 tools/Makefile
+else
+	cp server/Makefile.strict server/Makefile
+	cp qual/Makefile.nothreads qual/Makefile
+	cp tcp/Makefile.strict tcp/Makefile
+	cp dns/Makefile.authonly dns/Makefile
+	cp tools/Makefile.ipv6 tools/Makefile
+	DEADWOOD="$( echo deadwood-*/src )"
+	cp ${DEADWOOD}/Makefile ${DEADWOOD}/Makefile.save
+	cp ${DEADWOOD}/Makefile.strict ${DEADWOOD}/Makefile
+	cp coLunacyDNS/Makefile.strict coLunacyDNS/Makefile
 fi
 
 # While Lunacy *could* use readline, we use the API compatible

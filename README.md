@@ -98,6 +98,16 @@ export CC
 make
 ```
 
+Should one need to compile MaraDNS on a strictly POSIX compliant platform 
+without `chroot` or `setgroups`, compile as follows:
+
+```
+./configure --strict-posix
+CC=cc
+export CC
+make
+```
+
 While MaraDNS will compile with GCC 15 and GCC 16 (2026), GCC is a moving
 target and I cannot guarantee MaraDNS will compile with future versions
 of GCC.  Use clang (LLVM) instead if there are any issues compiling
@@ -140,6 +150,20 @@ it in cygwin and Alpine Linux (both Alpine 14 and Alpine 24).
 
 MaraDNS for the most part only needs POSIX libraries to compile and run.
 There are a small number of exceptions.
+
+Should one need to compile MaraDNS on a strictly POSIX compliant platform 
+compile as follows:
+
+```
+./configure --strict-posix
+CC=cc
+export CC
+make
+```
+
+MaraDNS has good reason to use non-POSIX calls, or calls which did
+not exist until POSIX 2008.  All of the system functions which do
+not exist in POSIX 2008 used by MaraDNS are described below.
 
 ### chroot
 
