@@ -171,7 +171,7 @@ make -f Makefile.strict
 
 MaraDNS has good reason to use non-POSIX calls, or calls which did
 not exist until POSIX 2008.  All of the system functions which do
-not exist in POSIX 2008 used by MaraDNS are described below.
+not exist in POSIX 2001 used by MaraDNS are described below.
 
 ### chroot
 
