@@ -79,8 +79,10 @@ To build MaraDNS, one needs a POSIX system with:
 * A current C compiler which can support, via `stdint`, 8-bit, 16-bit, 
   32-bit, and 64-bit sized integers.
 * A C library with both POSIX 2001 and Berkeley socket support.
-* A C library which supports the non-POSIX `chroot` system call.
-* A C library which supports the non-POSIX `setgroups` system call.
+* A C library which supports the widely deployed but non-POSIX `chroot` 
+  system call.
+* A C library which supports the widely deployed but non-POSIX `setgroups` 
+  system call.
 * A C library which supports `mkstemp`, which was not implemented in
   a secure way with POSIX until 2008.
 * A C library with `strnlen`, which was not part of the POSIX spec until
@@ -206,7 +208,7 @@ is started and loads configuration files *before* entering the
 ### setgroups
 
 The `setgroups` call is also used to sandbox MaraDNS.  Like `chroot`,
-this minimizes the inpact should one be able to get a remote root shell
+this minimizes the impact should one be able to get a remote root shell
 via a security hole in MaraDNS (again, as of 2026, no security hole with
 remote shell access has ever been found in MaraDNS, and it has been over
 25 years).
