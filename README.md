@@ -96,6 +96,8 @@ Then, do this:
 CC=clang
 export CC
 make
+cd coLunacyDNS
+make -f Makefile.default
 ```
 
 Should one need to compile MaraDNS on a strictly POSIX compliant platform 
@@ -106,6 +108,8 @@ without `chroot` or `setgroups`, compile as follows:
 CC=cc
 export CC
 make
+cd coLunacyDNS
+make -f Makefile.strict
 ```
 
 While MaraDNS will compile with GCC 15 and GCC 16 (2026), GCC is a moving
@@ -159,6 +163,8 @@ compile as follows:
 CC=cc
 export CC
 make
+cd coLunacyDNS
+make -f Makefile.strict
 ```
 
 MaraDNS has good reason to use non-POSIX calls, or calls which did

@@ -14,6 +14,7 @@ export AUTHONLY
 
 # Options: '--noipv6' -or- '--strict-posix'
 IPV6="yes"
+STRICT_POSIX=""
 if [ "$1" = '--ipv6' ] ; then
 	echo '--ipv6 enabled (Note: now default)'
 elif [ "$1" = '--noipv6' ] ; then
@@ -97,7 +98,11 @@ fi
 
 # Give them a message dependent on what kind of system they have
 if echo $UNAME | grep -i linux > /dev/null ; then
-	cat $BUILDDIR/Makefile.linux >> Makefile
+	if [ -z "$STRICT_POSIX" ] ; then
+		cat $BUILDDIR/Makefile.linux >> Makefile
+	else
+		cat $BUILDDIR/Makefile.strict >> Makefile
+	fi
 	DEADWOOD="$( echo deadwood-*/src )"
 	cp ${DEADWOOD}/Makefile ${DEADWOOD}/Makefile.save
 	cp ${DEADWOOD}/Makefile.ubuntu2204 ${DEADWOOD}/Makefile
@@ -182,9 +187,6 @@ else
 	EXITCODE=1
 fi
 
-# Back up coLunacyDNS's Makefile
-cp coLunacyDNS/Makefile coLunacyDNS/Makefile.save
-
 # Set up recursive and authoritative name serving
 if [ -z "$IPV6" ] ; then
 	cp server/Makefile.authonly server/Makefile
@@ -210,6 +212,7 @@ else
 	DEADWOOD="$( echo deadwood-*/src )"
 	cp ${DEADWOOD}/Makefile ${DEADWOOD}/Makefile.save
 	cp ${DEADWOOD}/Makefile.strict ${DEADWOOD}/Makefile
+	cp coLunacyDNS/Makefile coLunacyDNS/Makefile.save
 	cp coLunacyDNS/Makefile.strict coLunacyDNS/Makefile
 fi
 
