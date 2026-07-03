@@ -109,6 +109,7 @@ CC=cc
 export CC
 make
 cd coLunacyDNS
+make clean
 make -f Makefile.strict
 ```
 
@@ -164,6 +165,7 @@ CC=cc
 export CC
 make
 cd coLunacyDNS
+make clean
 make -f Makefile.strict
 ```
 
