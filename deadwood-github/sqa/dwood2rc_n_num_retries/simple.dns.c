@@ -33,7 +33,7 @@
 char p[17] =
 "\xc0\x0c\x00\x01\x00\x01\x00\x00\x00\x00\x00\x04\x0a\x0b\x0c\x0d";
 
-main() {
+int main() {
         int a, b, len_inet, sock;
         struct sockaddr_in dns_udp;
         char in[512];
@@ -84,6 +84,6 @@ main() {
           }
 
         }
-
+	return 0;
 }
 

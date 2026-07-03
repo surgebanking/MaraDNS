@@ -4,7 +4,7 @@
 # NOTE: No startup of MaraDNS because 127.0.0.2 is *supposed* to be
 #       non-responsive
 
-cc -o simple.dns simple.dns.c > /dev/null 2>&1
+cc -std=c99 -o simple.dns simple.dns.c > /dev/null 2>&1
 
 killall deadwood 2> /dev/null
 killall maradns 2> /dev/null
