@@ -35,7 +35,7 @@ MaraDNS changelog
      * Editline in the webpage (lunacy, my security hardened fork of Lua
        5.1, can use it to have arrow history without using any GPL
        code) has been updated to 2.0.0, because newer more picky compilers
-       won’t compile Editline 1.17.1
+       won’t compile Editline 1.17.1 
      * Running "make clean" from the top level directory after compiling
        MaraDNS should make the git tree clean again.
      * Removing various warnings newer more picky compilers generated.
