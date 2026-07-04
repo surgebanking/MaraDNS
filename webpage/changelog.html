@@ -63,6 +63,54 @@ A&nbsp;small open-source DNS&nbsp;server
 <!-- end header -->
 <H1>MaraDNS changelog</H1>
 
+<!-- --------------------------------------------- -->
+
+<p>maradns-3.5.0038:</p>
+   This is a stable release of MaraDNS:
+<blockquote><ul>
+  <li>Compilers have gotten a lot more picky since 2023: I cleaned up some
+compile errors with non-critical programs (<tt>mtest</tt> and 
+<tt>askmaratcp</tt>, both not needed to run the servers)
+  <li>In order to ensure future compilers still compile MaraDNS code, I have
+updated the Makefiles to compile with <tt>-std=c99</tt> and added feature
+test macros where needed.  With feature test macros in place, I have
+determined MaraDNS would compile with a C99 and POSIX 2008 compliant
+toolchain, except that it has been using <tt>chroot</tt> and
+<tt>setgroups</tt> since 2001, both of which were not made part of POSIX.
+  <li>I have a new <tt>configure</tt> option, 
+<tt>configure --strict-posix</tt>, which allows MaraDNS to compile in
+any C99/POSIX 2008 compliant system, albeit with less sandbox security 
+protection (no, MaraDNS—as of this 3.5.0038 release—has never had a 
+remote execution exploit in the over 25 years MaraDNS has existed, even 
+with multiple AI-assisted reviews of
+MaraDNS’s code, but, yes, we should still have protection
+from that if one were ever found).  If 
+<tt>configure --strict-posix; make</tt> doesn’t build MaraDNS, it’s 
+most likely a bug with the compiler/libc, not with MaraDNS.
+  <li>The newer more picky compilers also no longer compiled two <tt>.c</tt>
+files used by the tests.  I have updated those two tests, as well as 
+updating the test which queries <tt>example.com</tt>, and now all
+tests pass in Alpine Linux 3.34.
+  <li><tt>mqhash</tt> and <tt>marahash</tt> not only compile again, but they
+also have been moved to <a href=
+"https://github.com/samboy/MaraDNS-attic">MaraDNS-attic</a>.  I have
+moved from an AES-bash hash to RadioGatún[32] many years ago, and
+these programs didn’t compile between 2022 and 2026, something I only
+noticed because I got an AI-assisted security “report” about one of
+these programs.
+  <li>Deadwood’s build process updated to make sure it correctly grabs 
+the version number from the path for formal releases of MaraDNS.
+  <li>Editline in the webpage (lunacy, my security hardened fork of Lua
+5.1, can use it to have up-arrow history without using any GPL code)
+has been updated to 2.0.0, because
+newer more picky compilers won’t compile Editline 1.17.1
+  <li>Running <tt>make clean</tt> from the top level directory after
+compiling MaraDNS should make the git tree clean again.
+  <li>Removing various warnings newer more picky compilers generated.
+</ul>
+(2026-07-04)
+</blockquote>
+
 <p>maradns-3.5.0037:</p>
    This is a stable release of MaraDNS:
 <blockquote><ul>
@@ -71,8 +119,8 @@ A&nbsp;small open-source DNS&nbsp;server
 (2026-06-11)
 <p>
 <i>Note: MaraDNS 3.4 is no longer being updated.  Please <a 
-href="../patches/">apply patches by hand</a> if one wishes to continue
-using an older MaraDNS release.</i>
+href="../patches/">apply security patches by hand</a> if one wishes to 
+continue using an older MaraDNS release.</i>
 </blockquote>
 
 <p>maradns-3.5.0036:</p>
