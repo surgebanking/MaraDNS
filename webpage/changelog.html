@@ -94,14 +94,14 @@ tests pass in Alpine Linux 3.34.
   <li><tt>mqhash</tt> and <tt>marahash</tt> not only compile again, but they
 also have been moved to <a href=
 "https://github.com/samboy/MaraDNS-attic">MaraDNS-attic</a>.  I have
-moved from an AES-bash hash to RadioGatún[32] many years ago, and
+moved from an AES-based hash to RadioGatún[32] many years ago, and
 these programs didn’t compile between 2022 and 2026, something I only
 noticed because I got an AI-assisted security “report” about one of
 these programs.
   <li>Deadwood’s build process updated to make sure it correctly grabs 
 the version number from the path for formal releases of MaraDNS.
   <li>Editline in the webpage (lunacy, my security hardened fork of Lua
-5.1, can use it to have up-arrow history without using any GPL code)
+5.1, can use it to have arrow history without using any GPL code)
 has been updated to 2.0.0, because
 newer more picky compilers won’t compile Editline 1.17.1
   <li>Running <tt>make clean</tt> from the top level directory after

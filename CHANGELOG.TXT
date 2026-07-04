@@ -26,17 +26,17 @@ MaraDNS changelog
        updating the test which queries example.com, and now all tests pass
        in Alpine Linux 3.34.
      * mqhash and marahash not only compile again, but they also have been
-       moved to MaraDNS-attic. I have moved from an AES-bash hash to
+       moved to MaraDNS-attic. I have moved from an AES-based hash to
        RadioGatún[32] many years ago, and these programs didn’t compile
        between 2022 and 2026, something I only noticed because I got an
        AI-assisted security “report” about one of these programs.
      * Deadwood’s build process updated to make sure it correctly grabs
        the version number from the path for formal releases of MaraDNS.
      * Editline in the webpage (lunacy, my security hardened fork of Lua
-       5.1, can use it to have up-arrow history without using any GPL
+       5.1, can use it to have arrow history without using any GPL
        code) has been updated to 2.0.0, because newer more picky compilers
        won’t compile Editline 1.17.1
-     * Running make clean from the top level directory after compiling
+     * Running "make clean" from the top level directory after compiling
        MaraDNS should make the git tree clean again.
      * Removing various warnings newer more picky compilers generated.
      * coLunacyDNS’s version number bumped to 1.0.015.
