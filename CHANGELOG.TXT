@@ -39,6 +39,7 @@ MaraDNS changelog
      * Running make clean from the top level directory after compiling
        MaraDNS should make the git tree clean again.
      * Removing various warnings newer more picky compilers generated.
+     * coLunacyDNS’s version number bumped to 1.0.015.
 
      (2026-07-04)
 
