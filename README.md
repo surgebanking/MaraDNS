@@ -125,18 +125,27 @@ make -f Makefile.strict
 While MaraDNS will compile with GCC 15 and GCC 16 (2026), GCC is a moving
 target and I cannot guarantee MaraDNS will compile with future versions
 of GCC.  Use clang (LLVM) instead if there are any issues compiling
-MaraDNS with GCC.  My goal is to have no errors when compiling in
-GCC, and no warnings when compiling with clang.  MaraDNS, as of clang 21,
-compiles with no warnings when -Wall is set.  GCC 15 generates warnings,
-but GCC 16 doesn’t.  MaraDNS also compiles without issue with TCC 0.9.27.
+MaraDNS with GCC.  As of 2026-07-04, MaraDNS compiles with no errors
+nor warnings with the following compilers:
+
+* GCC 15 (Ubuntu 26.04)
+* GCC 16 (Cygwin)
+* Clang 20 (Cygwin)
+* Clang 21 (Ubuntu 26.04)
+* TCC 0.9.27 (Ubuntu 26.04)
 
 MaraDNS compiles and has been tested in Ubuntu 26 (glibc), cygwin
 (cygwin1.dll), and both Alpine Linux 14 and 24 (musl libc).
 
-Note that most implementations of `make` will set `$CC` to `cc` if it’s
-not already set, but the [POSIX spec](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html)
-says that the default value should be `c99`; as of 2026 MaraDNS will
-compile with the `c99` compiler.
+MaraDNS needs the following to compile:
+
+* A POSIX-2024 environtment, including `sh`, `awk`, and `make`
+* A C99 compliant compiler
+
+(The Windows port is compiled using a version of MinGW and
+MSYS from the first 2000s decade, but MaraDNS compiles just find
+in cygwin, and, while untested, *should* compile with a newer
+MinGW compiler)
 
 All of these are very standard tools which are included with the vast
 majority of Linux and BSD distributions; packages usually have names like:
@@ -149,16 +158,17 @@ majority of Linux and BSD distributions; packages usually have names like:
   also almost always included as part of a Linux base install.
 
 MaraDNS successfully compiles with `gcc`, `clang`, and `tcc`; it 
-successfully builds with GNU make, bmake, pdpmake (as long as non-POSIX
-and/or POSIX202X extensions are enabled and `CC` has the value `cc`), and 
-maramake.  The version of `make` used to compile MaraDNS needs to have 
-the command name `make`.  MaraDNS compiles and runs with both Busybox 
-versions of the core POSIX utilities and GNU coreutils.
+successfully builds with GNU make and maramake.  The version of `make` 
+used to compile MaraDNS needs to have the command name `make`.  
+MaraDNS compiles and runs with both Busybox versions of the core 
+POSIX utilities as well as GNU coreutils.
 
 ## Supported OSes
 
 MaraDNS is built and runs on Ubuntu 26.04 as of mid 2026.  I also test
-it in cygwin and Alpine Linux (both Alpine 14 and Alpine 24).
+it in cygwin and Alpine Linux (both Alpine 14 and Alpine 24).  There
+is in addition a MinGW/Cygwin port which uses non-POSIX calls for 
+the Windows environment.
 
 ## POSIX
 
@@ -271,7 +281,7 @@ binary: http://maradns.samiam.org/download.html (or, look in the
 folder `maradns-win32` here) 
 Be sure to download the file with the .zip extension.
 
-Only Deadwood and coLunacyDNS binaries are provided.  
+MaraDNS, askmara, Deadwood, and coLunacyDNS binaries are provided.  
 
 Deadwood has passed Y2038 tests in Windows 10.
 
