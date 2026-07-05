@@ -4427,7 +4427,7 @@ int main(int argc, char **argv) {
 #endif /* STRICT_POSIX */
 #endif /* __CYGWIN__ */
         /* Set the group ID */
-        setgid(gid);
+        if(setgid(gid)==-1){printf("Warning: setgid() failed line 4430\n");}
 
 #ifndef __CYGWIN__
         /* Next, change the UID */

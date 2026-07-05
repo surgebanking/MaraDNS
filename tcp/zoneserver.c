@@ -1253,7 +1253,7 @@ on %s\nFor usage information, type in 'man maradns'" */
                     fd_set read_set;
                     char buf[1024];
                     ssize_t readed;
-                    setgid(gid);
+                    if(setgid(gid)==-1){printf("setgid() failed line 1256\n");}
 #ifndef __CYGWIN__
                     if(setuid(uid) != 0) {
                             /* This is an ancient Linux kernel bug */
@@ -1281,7 +1281,8 @@ on %s\nFor usage information, type in 'man maradns'" */
                                     if(FD_ISSET(counter,&read_set)) {
                                         readed = read(counter,buf,1024);
                                         if(readed > 0) {
-                                            write(1,buf,readed);
+                                            if(write(1,buf,readed)==-1){
+                                            printf("Write error line 1285\n");} 
                                         } else {
                                             /* No longer exists  */
                                             close(counter);
@@ -1303,7 +1304,7 @@ on %s\nFor usage information, type in 'man maradns'" */
 
         /* Drop the elevated privileges */
 #ifndef __CYGWIN__
-        setgid(gid);
+        if(setgid(gid)==-1){printf("setgid() failed line 1306\n");}
         if(setuid(uid) != 0)
             harderror(L_NODROP); /* "Could not drop root uid" */
         if(setuid(0) == 0)

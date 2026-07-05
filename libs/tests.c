@@ -80,17 +80,17 @@ int main() {
     for(;;) {
         printf("a to add, v to view, d to delete, and q to quit\n");
         printf("Enter command: ");
-        fgets(strn,200,stdin);
+        if(fgets(strn,200,stdin)==NULL){printf("line 83 fgets\n");exit(0);}
         if(strn[strlen(strn) - 1] == '\n')
             strn[strlen(strn) - 1] = '\0';
         if(*strn == 'a') {
             printf("Element to add: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){printf("line 88 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s1,strn);
             printf("Value of element: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){printf("line 93 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s2,strn);
@@ -98,7 +98,8 @@ int main() {
             }
         else if(*strn == 'v') {
             printf("Element to view: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){
+                  printf("line 101 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s1,strn);
@@ -110,7 +111,8 @@ int main() {
             }
         else if(*strn == 'd') {
             printf("Element to delete: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){
+                printf("line 113 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s1,strn);

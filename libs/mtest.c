@@ -1,4 +1,4 @@
-/* Given in to the public domain 2000,2001 by Sam Trenholme */
+/* Given in to the public domain 2000,2001,2026 by Sam Trenholme */
 /* This is a series of regression tests for the js_string library */
 
 #include "MaraHash.h"
@@ -27,7 +27,7 @@ int main() {
     /* First, create the dictionary */
     printf("Interactive session: create dictionary\n");
     printf("Number of bits in hash (default 8): ");
-    fgets(strn,200,stdin);
+    if(fgets(strn,200,stdin)==NULL) {printf("Line 30 fgets\n");exit(0);}
     if(strn[strlen(strn) - 1] == '\n')
         strn[strlen(strn) - 1] = '\0';
     if(atoi(strn) >= 8 && atoi(strn) < 31)
@@ -62,12 +62,12 @@ int main() {
         printf("hash, r to resize,\n");
         printf("g to add element with autogrow check,and q to quit\n");
         printf("Enter command: ");
-        fgets(strn,200,stdin);
+        if(fgets(strn,200,stdin)==NULL){printf("line 65 fgets\n");exit(0);}
         if(strn[strlen(strn) - 1] == '\n')
             strn[strlen(strn) - 1] = '\0';
         if(*strn == 'r') {
             printf("New size of hash (in hash_bits): ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){printf("line 70 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             if(atoi(strn) >= 8 && atoi(strn) < 31)
@@ -95,12 +95,13 @@ int main() {
             }
         else if(*strn == 'a') {
             printf("Element to add: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){printf("line 98 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s1,strn);
             printf("Value of element: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){
+                printf("line 103 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s2,strn);
@@ -108,12 +109,14 @@ int main() {
             }
         else if(*strn == 'g') {
             printf("Element to add: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){
+                printf("line 112 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s1,strn);
             printf("Value of element: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){
+                printf("line 118 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s2,strn);
@@ -122,7 +125,8 @@ int main() {
             }
         else if(*strn == 'v') {
             printf("Element to view: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){
+                printf("line 128 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s1,strn);
@@ -134,7 +138,8 @@ int main() {
             }
         else if(*strn == 'd') {
             printf("Element to delete: ");
-            fgets(strn,200,stdin);
+            if(fgets(strn,200,stdin)==NULL){
+                printf("line 142 fgets\n");exit(0);}
             if(strn[strlen(strn) - 1] == '\n')
                 strn[strlen(strn) - 1] = '\0';
             js_qstr2js(s1,strn);
