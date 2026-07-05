@@ -778,7 +778,7 @@ js_string *js_append_dname(js_string *o, csv2_read *stream, int starwhitis) {
                 }
                 return o;
         } else if(look == '%' && (starwhitis == 4 || starwhitis == 5)) {
-                csv2_error(stream,"'\%' character not allowed");
+                csv2_error(stream,"'%' character not allowed");
                 js_destroy(o);
                 return 0;
         }
