@@ -72,7 +72,9 @@ Please be aware that any abuse of this feature may result in being blocked.
 <hr>
 <p>
 Here are all of the supported versions of MaraDNS <b class=b>without</b> any 
-known security issues:
+known security issues (except for a single minor DNS-over-TCP
+<a href="#tcprecv">issue</a> which is simply resolved by <i>not</i>
+enabling DNS-over-TCP—Deadwood’s default configuration).
 
 <ul>
 
@@ -936,6 +938,38 @@ CVE number: None<br>
 Impact: Denial of service, but only if DNS-over-TCP is enabled, and the
 only users who can exploit the bug are users authorized to make queries
 with Deadwood.
+<a name="tcprecv"> </a>
+<li>
+If DNS-over-TCP was enabled (it is disabled by default), a remote
+DNS server could cause the DNS-over-TCP
+service to not function with a denial of service attack.  The issue
+does not affect DNS-over-UDP operation.  This bug
+was fixed on August 24, 2026, but is not a serious enough bug to
+merit a new release, since DNS-over-TCP is disabled and really should
+not be enabled.
+<p>
+This bug <i>only</i> affects Deadwood, and does not affect MaraDNS
+(the authoritative nameserver) nor coLunacyDNS (the Lua/Lunacy scripted
+nameserver).
+<p>
+If <tt>tcp_listen</tt> is not in your <tt>dwood3rc</tt> file, this
+bug does not affect you.  If <tt>tcp_listen</tt> <i>is</i> in your
+<tt>dwood3rc</tt> file but has the value <tt>0</tt>, this bug <i>still</i>
+does not affect you.  Only people who have set <tt>tcp_listen</tt> to have
+a value of <tt>1</tt> are affected.
+<p>
+<p>
+This version is fixed in <a href=
+"https://github.com/samboy/MaraDNS/commit/13c0af9d3c2b39241d052a438f91c2e4bb77e9c8"
+>commit 13c0af9d3c</a> on August 24, 2026, and a new Windows binary was
+made with the patch applied.
+<p>
+A <a href=https://samboy.github.io/MaraDNS/patches/MaraDNS-recvtcp.patch.txt>patch</a> is also available.
+<p>Again, people should not be using DNS-over-TCP with Deadwood.
+<p>
+CVE number: None<br>
+Impact: Denial of service, but only if DNS-over-TCP is enabled, and
+this bug in no way impacts normal DNS-over-UDP use.
 </ol>
 <!-- begin footer -->
 </div></div>
