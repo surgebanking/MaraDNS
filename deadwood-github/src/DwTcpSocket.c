@@ -204,7 +204,7 @@ void tcp_get_wanted(int b) {
                 len = recv(tcp_pend[b].local,buffer,toget,MSG_DONTWAIT);
                 /* Add the bytes we get to the end of the buffer of wanted
                  * bytes */
-                if(len > toget || len < 0) {
+                if(len > toget || len <= 0) {
                         free(buffer);
                         return;
                 }
