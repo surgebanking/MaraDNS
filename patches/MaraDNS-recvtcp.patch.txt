@@ -1,0 +1,35 @@
+commit 00b1c3361322c30d3c4f19761ef30eae9e1938d8
+Author: Sam Trenholme <git@samiam.org>
+Date:   Mon Aug 24 01:28:32 2026 -0600
+
+    DwTcpSocket.c: Fixing another DNS-over-TCP denial of service
+    
+    If an authorized local client (or remote server) gracefully closes
+    the connection after sending the 2-byte DNS length header, recv(),
+    it would seem, returns a 0 since the remote server has “gracefully”
+    closed the connection.  This means the connection should be treated
+    as closed.
+    
+    Impact: An authorized TCP client can shut down the DNS-over-TCP service.
+    DNS-over-UDP works as usual.
+    
+    Workaround: Don’t enabled DNS-over-TCP with Deadwood.  It’s a hack I only
+    added to be strictly RFC compliant, and real world DNS servers don’t
+    use DNS-over-TCP (and, if they do, they expect packets which have
+    EDNS and what not).
+    
+    Note: I’m not going to make a new MaraDNS release over this.
+
+diff --git a/deadwood-github/src/DwTcpSocket.c b/deadwood-github/src/DwTcpSocket.c
+index 8e5f5b8..4379524 100644
+--- a/deadwood-github/src/DwTcpSocket.c
++++ b/deadwood-github/src/DwTcpSocket.c
+@@ -204,7 +204,7 @@ void tcp_get_wanted(int b) {
+                 len = recv(tcp_pend[b].local,buffer,toget,MSG_DONTWAIT);
+                 /* Add the bytes we get to the end of the buffer of wanted
+                  * bytes */
+-                if(len > toget || len < 0) {
++                if(len > toget || len <= 0) {
+                         free(buffer);
+                         return;
+                 }
