@@ -1,0 +1,32 @@
+commit cd87cfd9141949b7ca62455574726defee9e3ad7
+Author: Sam Trenholme <git@samiam.org>
+Date:   Tue Sep 1 00:54:03 2026 -0600
+
+    RFC8482 answers are a little too long.  Fixed.
+
+diff --git a/deadwood-github/src/DwUdpSocket.c b/deadwood-github/src/DwUdpSocket.c
+index 1ffdac2..cf7f527 100644
+--- a/deadwood-github/src/DwUdpSocket.c
++++ b/deadwood-github/src/DwUdpSocket.c
+@@ -825,9 +825,11 @@ void get_local_udp_packet(SOCKET sock) {
+ 	   ((qtype == 255 || qtype == 13) && rfc8482 == 1) ||
+            in_blocked_hosts_hash == 1) {
+                 unsigned char *answer;
++                int answer_len = 40;
+ 
+ 		if(qtype == 255 || qtype == 13) { /* ANY or HINFO */
+                 	answer = make_synth_rfc8482_answer(packet,&len,0);
++                        answer_len = 21;
+ 		} else {
+                 	answer = make_synth_not_there_answer(packet,&len,0);
+ 		}
+@@ -846,7 +848,8 @@ void get_local_udp_packet(SOCKET sock) {
+                 answer[9] = 1;
+                 answer[6] = answer[7] = answer[8] = answer[10] = answer[11] =0;
+                 /* Copy over ID */
+-                sendto(sock,(void *)answer,len+40,0,(struct sockaddr *)&client,
++                sendto(sock,(void *)answer,
++                                len+answer_len,0,(struct sockaddr *)&client,
+                                 c_len);
+                 free(answer);
+                 goto catch_get_local_udp_packet;
