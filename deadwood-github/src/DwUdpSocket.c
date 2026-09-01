@@ -825,9 +825,11 @@ void get_local_udp_packet(SOCKET sock) {
 	   ((qtype == 255 || qtype == 13) && rfc8482 == 1) ||
            in_blocked_hosts_hash == 1) {
                 unsigned char *answer;
+                int answer_len = 40;
 
 		if(qtype == 255 || qtype == 13) { /* ANY or HINFO */
                 	answer = make_synth_rfc8482_answer(packet,&len,0);
+                        answer_len = 21;
 		} else {
                 	answer = make_synth_not_there_answer(packet,&len,0);
 		}
@@ -846,7 +848,8 @@ void get_local_udp_packet(SOCKET sock) {
                 answer[9] = 1;
                 answer[6] = answer[7] = answer[8] = answer[10] = answer[11] =0;
                 /* Copy over ID */
-                sendto(sock,(void *)answer,len+40,0,(struct sockaddr *)&client,
+                sendto(sock,(void *)answer,
+                                len+answer_len,0,(struct sockaddr *)&client,
                                 c_len);
                 free(answer);
                 goto catch_get_local_udp_packet;
