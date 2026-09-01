@@ -970,6 +970,23 @@ A <a href=https://samboy.github.io/MaraDNS/patches/MaraDNS-recvtcp.patch.txt>pat
 CVE number: None<br>
 Impact: Denial of service, but only if DNS-over-TCP is enabled, and
 this bug in no way impacts normal DNS-over-UDP use.
+<li>
+<a name="rfc8482"> </a>
+Deadwood, when sending a RFC8482 reply to an ANY query, would transmit
+over the network 19 bytes of uninitialized memory.  This is a possible
+(but unlikely) leak of private data.  This bug was fixed on September
+1, 2026, in
+<a href=
+"https://github.com/samboy/MaraDNS/commit/cd87cfd9141949b7ca62455574726defee9e3ad7"
+>commit cd87cfd9</a>; a <a href=
+"https://samboy.github.io/MaraDNS/patches/MaraDNS-rfc8482.patch.txt"
+>patch</a> is available, and the Windows 32-bit binary was fixed in
+<a href=
+"https://github.com/samboy/MaraDNS/commit/0f46565c142377ab415d6c56a0e7ddd488ecc4f6"
+>commit 0f46565c</a>.
+<p>
+CVE number: None<br>
+Impact: 19 bytes of uninitialized memory were transmitted over the network.
 </ol>
 <!-- begin footer -->
 </div></div>
