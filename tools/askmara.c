@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2010 Sam Trenholme
+/* Copyright (c) 2002-2026 Sam Trenholme
  *
  * TERMS
  *
@@ -197,6 +197,8 @@ int main(int argc, char **argv) {
     while(argc > 0) {
         if(argv[0] [0]== '-' && argv[0][1] == 'v')
             verbose_mode = 1;
+        else if(argv[0][0] == '-' && argv[0][1] == 'r')
+            verbose_mode = 3;
         else if(argv[0][0] == '-' && argv[0][1] == 'n')
             nrd = 1;
         else if(argv[0][0] == '-' && argv[0][1] == 'p') {
@@ -387,6 +389,25 @@ int main(int argc, char **argv) {
         /* If the id doesn't match, get a reply again */
         } while(id != header.id && attempts > 0);
 
+    if(verbose_mode == 3) {
+      int counter;
+      printf("Raw packet: \n");
+      for(counter = 0; counter < indata->unit_count; counter++) {
+        int this_byte;
+        this_byte = *(indata->string + counter);
+        if(this_byte >= 32 && this_byte < 127) {
+          printf("%02x %c | ",this_byte,this_byte);
+        } else {
+          printf("%02x . | ",this_byte);
+        }
+        if(counter % 8 == 7) {
+          printf("\n");
+        }
+      }
+      if(counter % 8 != 7) {
+        printf("\n");
+      }
+    }
     decomp_init(0);
     decompress_data(indata,uindata);
 
@@ -396,7 +417,7 @@ int main(int argc, char **argv) {
     escape_stdout(uindata);
     */
 
-    if(verbose_mode == 1)
+    if(verbose_mode == 1 || verbose_mode == 3)
         verbose_output(uindata);
     else
         csv2_compatible_output(uindata,question.qname);
