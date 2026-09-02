@@ -12,3 +12,6 @@ These are security patches applied to versions of MaraDNS after
   only impact was that DNS-over-TCP could be disabled by an attacker;
   DNS-over-UDP was not impacted.  Date: 2026-08-24
 
+* [RFC 8482 patch](MaraDNS-rfc8482.patch.txt).  Deadwood, when generating
+  a RFC8482 response, would make visible 19 bytes of unallocated memory on
+  the heap to the network.  Dated: 2026-09-01
